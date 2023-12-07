@@ -1,8 +1,8 @@
-import { VStack, Image, Text, Button } from '@chakra-ui/react'
 import React from 'react'
+import { VStack, Image, Text, Button } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
 import Img401 from '../../../public/401.png'
 import componentKey from '../../key/keyComponent'
-import { useNavigate } from 'react-router-dom'
 
 export default function NaoAutorizado401 () {
   const navigate = useNavigate()
