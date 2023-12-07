@@ -23,7 +23,7 @@ export default function Routes () {
       path: '/',
       element: <Admin />,
       children: [
-        { path: '/', element: <Logar /> },
+        { path: '/SetupCompletoReactJS', element: <Logar /> },
         { path: '*', element: <NaoLocalizado404 /> }
       ]
     }
