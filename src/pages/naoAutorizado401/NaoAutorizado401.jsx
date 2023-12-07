@@ -10,7 +10,7 @@ export default function NaoAutorizado401 () {
     <VStack mt={20} key={componentKey}>
       <Image src={Img401} />
       <Text fontSize={20} >Você <strong>não tem permissão</strong> de acesso a essa pagina.</Text>
-      <Button onClick={() => { navigate('/') }} mt={6}>Logar Novamente</Button>
+      <Button onClick={() => { navigate('/SetupCompletoReactJS') }} mt={6}>Logar Novamente</Button>
     </VStack>
   )
 }

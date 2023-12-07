@@ -14,7 +14,7 @@ export default function Sidebar () {
 
   const sair = () => {
     localStorage.removeItem('KOA')
-    navigate('/')
+    navigate('/SetupCompletoReactJS')
     onClose()
   }
 
