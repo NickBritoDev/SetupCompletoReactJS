@@ -8,7 +8,7 @@ export default function NaoLocalizado404 () {
   const navigate = useNavigate()
 
   const goBackOneStep = () => {
-    navigate('/admin/home')
+    navigate('/SetupCompletoReactJS/admin/home')
   }
 
   return (

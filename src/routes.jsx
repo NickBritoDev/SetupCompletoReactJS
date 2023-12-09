@@ -10,7 +10,7 @@ import { verificarChave } from './auth/verificaChaveDeAutorizacao'
 export default function Routes () {
   const routing = useRoutes([
     {
-      path: '/admin',
+      path: 'SetupCompletoReactJS/admin',
       element: <Admin />,
       children: [
         {
@@ -20,7 +20,7 @@ export default function Routes () {
       ]
     },
     {
-      path: '/',
+      path: '/SetupCompletoReactJS',
       element: <Admin />,
       children: [
         { path: '/SetupCompletoReactJS', element: <Logar /> },
