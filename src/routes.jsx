@@ -6,6 +6,7 @@ import NaoAutorizado401 from './pages/naoAutorizado401/NaoAutorizado401'
 import NaoLocalizado404 from './pages/naoLocalizado404/NaoLocalizado404'
 import Logar from './pages/logar/Logar'
 import { verificarChave } from './auth/verificaChaveDeAutorizacao'
+import Registrar from './pages/registrar/Registrar'
 
 export default function Routes () {
   const routing = useRoutes([
@@ -24,6 +25,7 @@ export default function Routes () {
       element: <Admin />,
       children: [
         { path: '/SetupCompletoReactJS', element: <Logar /> },
+        { path: '/SetupCompletoReactJS/registrar-se', element: <Registrar /> },
         { path: '*', element: <NaoLocalizado404 /> }
       ]
     }

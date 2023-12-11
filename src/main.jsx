@@ -3,14 +3,19 @@ import * as ReactDOM from 'react-dom/client'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { ChakraProvider, theme } from '@chakra-ui/react'
 import App from './App'
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
 
 const rootElement = document.getElementById('root')
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
         <Router>
           <App />
         </Router>
-    </ChakraProvider>
+      </ChakraProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 )

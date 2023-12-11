@@ -1,58 +1,23 @@
-import React from 'react'
-import { AbsoluteCenter, Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, InputGroup, InputRightElement, Text, useToast } from '@chakra-ui/react'
+import { AbsoluteCenter, Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
 import { useFormik } from 'formik'
-import { setKey } from '../../auth/verificaChaveDeAutorizacao'
-import authKey from '../../auth/keyAuth'
-import FormLoginSchema from './schema/FormLoginSchema'
+import React from 'react'
+import FormLoginSchema from '../logar/schema/FormLoginSchema'
 import { useNavigate } from 'react-router-dom'
-import { useFilterAllUser } from './hooks/useFilterAllUser'
-import componentKey from '../../key/keyComponent'
+import { useCreateUser } from '../logar/hooks/useCreateUser'
 
-export default function Logar () {
-  const toast = useToast()
-  const { data } = useFilterAllUser()
+export default function Registrar () {
+  const { UseRequestCreateUser } = useCreateUser()
   const navigate = useNavigate()
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
-  const users = data || []
-
-  const verificaContaUsuario = (email, senha) => {
-    if (users.length > 0) {
-      const user = users.find(user => user.email === email.trim())
-
-      if (user) {
-        if (user.senha === senha.trim()) {
-          setKey('KOA', authKey)
-          navigate('/SetupCompletoReactJS/admin/home')
-        } else {
-          mostrarToast('Senha incorreta! Tente novamente.', 'warning')
-        }
-      } else {
-        mostrarToast('Email não encontrado! Crie uma conta para acessar o sistema.', 'warning')
-      }
-    } else {
-      mostrarToast('Nenhum usuário cadastrado!', 'error')
-    }
-  }
-
-  const mostrarToast = (description, status) => {
-    toast({
-      title: status === 'error' ? 'Erro!' : 'Aviso!',
-      description,
-      status,
-      duration: 9000,
-      isClosable: true,
-      position: 'top-right'
-    })
-  }
 
   const initialValues = {
     email: '',
     senha: ''
   }
 
-  const onSubmit = (values) => {
-    verificaContaUsuario(values.email, values.senha)
+  const onSubmit = async (values) => {
+    await UseRequestCreateUser(values.email, values.senha)
   }
 
   const formik = useFormik({
@@ -66,7 +31,6 @@ export default function Logar () {
 
   return (
     <FormControl
-      key={componentKey}
       display={'flex'}
       flexDir={'column'}
       justifyContent={'center'}
@@ -77,10 +41,10 @@ export default function Logar () {
       w={'470px'}
       isInvalid={isErrorEmail || isErrorSenha} >
 
-      <Heading fontSize={24}>Acesse sua conta</Heading>
+      <Heading fontSize={24}>Criar uma nova conta</Heading>
       <Divider mb={10} />
 
-      <FormLabel>Email</FormLabel>
+      <FormLabel mt={10}>Email</FormLabel>
       <InputGroup display={'flex'} flexDir={'column'} size='md'>
         <Input
           type='email'
@@ -111,10 +75,10 @@ export default function Logar () {
         />
         {isErrorSenha
           ? (
-            <FormErrorMessage>{formik.errors.senha}</FormErrorMessage>
+          <FormErrorMessage>{formik.errors.senha}</FormErrorMessage>
             )
           : (
-            <FormHelperText>Use sua senha cadastrada.</FormHelperText>
+          <FormHelperText>Use sua senha cadastrada.</FormHelperText>
             )}
         <InputRightElement width='4.5rem'>
           <Button h='1.75rem' size='sm' onClick={handleClick}>
@@ -123,16 +87,16 @@ export default function Logar () {
         </InputRightElement>
       </InputGroup>
 
-      <Button bg={'blue.300'} rounded={'2xl'} mt={10} onClick={formik.handleSubmit}>Acessar</Button>
+      <Button bg={'blue.300'} rounded={'2xl'} mt={10} onClick={formik.handleSubmit}>Criar conta</Button>
       <Box position='relative' padding='10'>
         <Divider />
         <AbsoluteCenter bg='white' px='4'>
           <Text fontSize={14}>
-            É sua primeira vez por aqui ?
+            Já tem uma conta ?
           </Text>
         </AbsoluteCenter>
       </Box>
-      <Button bg={'orange'} rounded={'2xl'} mb={4} onClick={() => { navigate('/SetupCompletoReactJS/registrar-se') }}>Registrar-se</Button>
+      <Button bg={'orange'} rounded={'2xl'} mb={4} onClick={() => { navigate('/SetupCompletoReactJS') }}>Acessar com sua conta</Button>
 
     </FormControl>
   )
