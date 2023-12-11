@@ -1,5 +1,5 @@
 import React from 'react'
-import { AbsoluteCenter, Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, InputGroup, InputRightElement, Text, useToast } from '@chakra-ui/react'
+import { AbsoluteCenter, Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, InputGroup, InputRightElement, Text, useColorMode, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { setKey } from '../../auth/verificaChaveDeAutorizacao'
 import authKey from '../../auth/keyAuth'
@@ -9,6 +9,7 @@ import { useFilterAllUser } from './hooks/useFilterAllUser'
 import componentKey from '../../key/keyComponent'
 
 export default function Logar () {
+  const { colorMode } = useColorMode()
   const toast = useToast()
   const { data } = useFilterAllUser()
   const navigate = useNavigate()
@@ -28,7 +29,7 @@ export default function Logar () {
           mostrarToast('Senha incorreta! Tente novamente.', 'warning')
         }
       } else {
-        mostrarToast('Email não encontrado! Crie uma conta para acessar o sistema.', 'warning')
+        mostrarToast('Email não encontrado! Crie uma conta para acessar o sistema.', 'error')
       }
     } else {
       mostrarToast('Nenhum usuário cadastrado!', 'error')
@@ -78,7 +79,7 @@ export default function Logar () {
       isInvalid={isErrorEmail || isErrorSenha} >
 
       <Heading fontSize={24}>Acesse sua conta</Heading>
-      <Divider mb={10} />
+      <Divider mb={4} />
 
       <FormLabel>Email</FormLabel>
       <InputGroup display={'flex'} flexDir={'column'} size='md'>
@@ -126,7 +127,7 @@ export default function Logar () {
       <Button bg={'blue.300'} rounded={'2xl'} mt={10} onClick={formik.handleSubmit}>Acessar</Button>
       <Box position='relative' padding='10'>
         <Divider />
-        <AbsoluteCenter bg='white' px='4'>
+        <AbsoluteCenter bg={colorMode === 'light' ? 'white' : 'gray.800'} px='4'>
           <Text fontSize={14}>
             É sua primeira vez por aqui ?
           </Text>

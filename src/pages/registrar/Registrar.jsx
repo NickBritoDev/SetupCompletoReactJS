@@ -1,11 +1,12 @@
-import { AbsoluteCenter, Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
+import { AbsoluteCenter, Box, Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Heading, Input, InputGroup, InputRightElement, Text, useColorMode } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import React from 'react'
 import FormLoginSchema from '../logar/schema/FormLoginSchema'
 import { useNavigate } from 'react-router-dom'
-import { useCreateUser } from '../logar/hooks/useCreateUser'
+import { useCreateUser } from './hooks/useCreateUser'
 
 export default function Registrar () {
+  const { colorMode } = useColorMode()
   const { UseRequestCreateUser } = useCreateUser()
   const navigate = useNavigate()
   const [show, setShow] = React.useState(false)
@@ -42,9 +43,9 @@ export default function Registrar () {
       isInvalid={isErrorEmail || isErrorSenha} >
 
       <Heading fontSize={24}>Criar uma nova conta</Heading>
-      <Divider mb={10} />
+      <Divider mb={4} />
 
-      <FormLabel mt={10}>Email</FormLabel>
+      <FormLabel >Email</FormLabel>
       <InputGroup display={'flex'} flexDir={'column'} size='md'>
         <Input
           type='email'
@@ -90,7 +91,7 @@ export default function Registrar () {
       <Button bg={'blue.300'} rounded={'2xl'} mt={10} onClick={formik.handleSubmit}>Criar conta</Button>
       <Box position='relative' padding='10'>
         <Divider />
-        <AbsoluteCenter bg='white' px='4'>
+        <AbsoluteCenter bg={colorMode === 'light' ? 'white' : 'gray.800'} px='4'>
           <Text fontSize={14}>
             Já tem uma conta ?
           </Text>
