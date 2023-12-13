@@ -18,6 +18,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "axios": "^1.6.2",
+    "emailjs-com": "^3.2.0",
     "formik": "^2.4.5",
     "framer-motion": "^10.16.14",
     "gh-pages": "^6.1.0",

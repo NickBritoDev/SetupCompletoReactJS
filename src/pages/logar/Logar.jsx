@@ -7,6 +7,7 @@ import FormLoginSchema from './schema/FormLoginSchema'
 import { useNavigate } from 'react-router-dom'
 import { useFilterAllUser } from './hooks/useFilterAllUser'
 import componentKey from '../../key/keyComponent'
+import EmailForm from '../../email/SendEmail'
 
 export default function Logar () {
   const { colorMode } = useColorMode()
@@ -125,7 +126,8 @@ export default function Logar () {
       </InputGroup>
 
       <Button bg={'blue.300'} rounded={'2xl'} mt={10} onClick={formik.handleSubmit}>Acessar</Button>
-      <Box position='relative' padding='10'>
+      <EmailForm />
+      <Box position='relative' padding='10' mt={-4}>
         <Divider />
         <AbsoluteCenter bg={colorMode === 'light' ? 'white' : 'gray.800'} px='4'>
           <Text fontSize={14}>
@@ -134,7 +136,6 @@ export default function Logar () {
         </AbsoluteCenter>
       </Box>
       <Button bg={'orange'} rounded={'2xl'} mb={4} onClick={() => { navigate('/SetupCompletoReactJS/registrar-se') }}>Registrar-se</Button>
-
     </FormControl>
   )
 }
