@@ -4,23 +4,11 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { ChakraProvider, theme } from '@chakra-ui/react'
 import App from './App'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 const queryClient = new QueryClient()
 
 const rootElement = document.getElementById('root')
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-        console.log('Service Worker registrado com sucesso!', registration)
-      })
-      .catch(error => {
-        console.error('Erro ao registrar o Service Worker:', error)
-      })
-  })
-}
-
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
@@ -32,3 +20,5 @@ ReactDOM.createRoot(rootElement).render(
     </QueryClientProvider>
   </React.StrictMode>
 )
+
+serviceWorkerRegistration.register()
