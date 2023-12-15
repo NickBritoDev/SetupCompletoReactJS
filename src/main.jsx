@@ -5,6 +5,7 @@ import { ChakraProvider, theme } from '@chakra-ui/react'
 import App from './App'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import { initPWA } from './pwa'
 
 const queryClient = new QueryClient()
 
@@ -22,3 +23,4 @@ ReactDOM.createRoot(rootElement).render(
 )
 
 serviceWorkerRegistration.register()
+initPWA()
