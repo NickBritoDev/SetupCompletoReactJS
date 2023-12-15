@@ -10,7 +10,6 @@ const EmailForm = () => {
   const dadosUsuario = data || []
   const [, setSubmittedEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [isReadyToSend, setIsReadyToSend] = useState(false)
   const [exibeForm, setExibeForm] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -22,6 +21,32 @@ const EmailForm = () => {
   )
   const [overlay, setOverlay] = React.useState(<OverlayOne />)
 
+  const sendPasswordResetEmail = async () => {
+    try {
+      const form = document.querySelector('form')
+      if (form) {
+        await emailjs.sendForm('service_ykdd7j3', 'template_eb2j6bl', form, 'cj3uFcdBMZFwfhzPW')
+        toast({
+          title: 'Email enviado.',
+          description: 'Consulte seu email para poder acessar.',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right'
+        })
+      }
+    } catch (error) {
+      toast({
+        title: 'Erro ao enviar email.',
+        description: 'Verifique o email digitado e tente novamente.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right'
+      })
+    }
+  }
+
   const sendEmail = async (e) => {
     e.preventDefault()
 
@@ -31,7 +56,7 @@ const EmailForm = () => {
     if (userExists) {
       setSubmittedEmail(userEmail)
       setPassword(userExists.senha)
-      setIsReadyToSend(true)
+      sendPasswordResetEmail(userEmail, userExists.senha)
     } else {
       toast({
         title: 'Email não localizado.',
@@ -44,43 +69,16 @@ const EmailForm = () => {
     }
   }
 
-  React.useEffect(() => {
-    if (isReadyToSend && password) {
-      const form = document.querySelector('form')
-      if (form) {
-        emailjs.sendForm('service_ykdd7j3', 'template_eb2j6bl', form, 'cj3uFcdBMZFwfhzPW')
-          .then((result) => {
-            toast({
-              title: 'Email enviado.',
-              description: 'Consulte seu email para poder acessar.',
-              status: 'success',
-              duration: 9000,
-              isClosable: true,
-              position: 'top-right'
-            })
-          })
-          .catch(() => {
-            toast({
-              title: 'Erro ao enviar email.',
-              description: 'Verifique o email digitado e tente novamente.',
-              status: 'error',
-              duration: 9000,
-              isClosable: true,
-              position: 'top-right'
-            })
-          })
-        setIsReadyToSend(false)
-      }
-    }
-  }, [isReadyToSend, password])
-
   return (
     <Flex key={componentKey}>
-      <Button display={exibeForm ? 'none' : ''} onClick={() => {
-        setExibeForm(!exibeForm)
-        setOverlay(<OverlayOne />)
-        onOpen()
-      }} bg={'transparent'}>Esqueceu sua senha?</Button>
+      <Button
+        _hover={{ color: 'blue.400', bg: 'transparent' }}
+        color={'blue.700'}
+        onClick={() => {
+          setExibeForm(!exibeForm)
+          setOverlay(<OverlayOne />)
+          onOpen()
+        }} bg={'transparent'}>Esqueceu sua senha?</Button>
       <Modal isCentered isOpen={isOpen} onClose={onClose}>
         {overlay}
         <ModalContent>
