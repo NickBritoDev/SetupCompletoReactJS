@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { ChakraProvider, theme } from '@chakra-ui/react'
 import App from './App'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ChakraProvider, theme } from '@chakra-ui/react'
 
 const queryClient = new QueryClient()
 
